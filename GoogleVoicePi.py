@@ -11,8 +11,8 @@ records = {}
 def find(n):
 	res = digits.find(n)
 	if res > -1:
-		records[n] = res
 		print("%s found at index %d." % (n, res))
+		return (n, res)
 
 with open('pi') as f:
 	digits = f.readline().strip()
@@ -20,9 +20,14 @@ with open('pi') as f:
 numbers = [line.strip() for line in open('numbers')]
 
 p = Pool(N_PROCESSES)
-p.map(find, numbers)
+res = set(p.map(find, numbers))
+res.remove(None)
 
 print("Done.")
+
+for n, count in res:
+	records[n] = count
+
 results = sorted(records, key=records.get)
 for n in results:
 	print("%s => %d" % (n, records[n]))
