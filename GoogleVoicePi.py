@@ -24,4 +24,5 @@ p.map(find, numbers)
 
 print("Done.")
 results = sorted(records, key=records.get)
-print results
+for n, count in results.items():
+	print("%s => %d" % (n, count))
